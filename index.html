@@ -118,11 +118,321 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<blockquote>
+<p>API endpoint</p>
+</blockquote>
+<pre class="highlight shell"><code>http://api.mesh-scheduler.com
+</code></pre>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>The MESH API is organized around REST. JSON is returned by all API responses, including errors.
+The website is <a href="http://www.mesh-scheduler.com">MESH</a>. Feel free to sign up and check it out.
+if you need to tak to us please email at <strong>canarmony@gmail.com</strong></p>
 
-<p>This example API documentation page was created with <a href="https://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
+<h1 id="resources">Resources</h1>
+
+<h2 id="user">User</h2>
+
+<p>A User object is created when signup is completed. A user can be an employee of multiple pools.
+The API allows for updating user settings and returning employee accounts that belong to the user. </p>
+
+<h3 id="the-user-object">The user object</h3>
+
+<h3 id="create-a-user">Create a user</h3>
+
+<h3 id="retrieve-a-user">Retrieve a user</h3>
+
+<h3 id="update-a-user">Update a user</h3>
+
+<h2 id="employees">Employees</h2>
+
+<p>An Employee object is created after a User searches for a pool, makes a request to join that pool and is accepted by the pool administrator.
+The API returns an individual object given its id as well as other members in the pool. </p>
+
+<h3 id="the-employee-object">the employee object</h3>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>Employee object id</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>Employees name</td>
+</tr>
+<tr>
+<td>activated</td>
+<td>Boolean: default false</td>
+<td>If set to true, the employee has been activated by the pool administrator</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>Integer</td>
+<td>The user account that the employee belongs to</td>
+</tr>
+<tr>
+<td>pool_id</td>
+<td>Integer</td>
+<td>The pool that the employee is a member of</td>
+</tr>
+<tr>
+<td>in_schedule</td>
+<td>Boolean: default false</td>
+<td>If set to true, the employee is being scheduled</td>
+</tr>
+</tbody></table>
+
+<h3 id="retrieve-employee">Retrieve employee</h3>
+
+<p>Retrieves an employee with a given ID.
+If the ID is invalid or the current user does not have the priviledge to retrieve the employee an error is raised.</p>
+
+<h3 id="list-colleagues">List colleagues</h3>
+
+<p>List of all the employees colleagues given the employees ID.</p>
+
+<h2 id="assignments">Assignments</h2>
+
+<p>An Assignment is created when an employee of the pool is assigned to a empty timeslot within the schedule.
+The API returns an Assignment give its id as well as a list of assignments for the pool the employee is a member of. </p>
+
+<h3 id="the-assignment-object">the assignment object</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td></td>
+</tr>
+<tr>
+<td>position</td>
+<td>String</td>
+<td>Employees name</td>
+</tr>
+<tr>
+<td>pool_id</td>
+<td>Integer</td>
+<td>The pool that the assignment belongs to</td>
+</tr>
+<tr>
+<td>employee_id</td>
+<td>Integer</td>
+<td>The employee that the assignment belongs to</td>
+</tr>
+<tr>
+<td>start</td>
+<td>Timestamp</td>
+<td>The starting time of the assignment</td>
+</tr>
+<tr>
+<td>end</td>
+<td>Timestamp</td>
+<td>The ending time of the assignment</td>
+</tr>
+<tr>
+<td>allDay</td>
+<td>Boolean</td>
+<td>If set to true, the assignment is all day.</td>
+</tr>
+</tbody></table>
+
+<h3 id="retrieve-an-assignment">retrieve an assignment</h3>
+
+<p>Retrieves the details of an assignement that has been created and published for the employee. By 
+providing the ID of the assignment, it is returned.</p>
+
+<h3 id="list-all-assignments-for-the-employee">list all assignments for the employee</h3>
+
+<p>Returns the list of assignments provided the pool_id that have been created and published for the employee.</p>
+
+<table><thead>
+<tr>
+<th>Arguments</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>start</td>
+<td>Timestamp</td>
+<td>Assignments after the start date</td>
+</tr>
+<tr>
+<td>end</td>
+<td>Timestamp</td>
+<td>Assignments before the end date</td>
+</tr>
+<tr>
+<td>eid</td>
+<td>Integer</td>
+<td>the employee id</td>
+</tr>
+<tr>
+<td>not_eid</td>
+<td>Boolean</td>
+<td>All assignments belonging to employees in the pool that are not the employee is returned</td>
+</tr>
+</tbody></table>
+
+<h2 id="requests">Requests</h2>
+
+<p>A request is made by the employee asking for a vacation, day off, day on, prefer on or prefer off. The API allows for showing 
+a single request given the id, showing the list of requests an employee has made, creating, updating and deleting a request. </p>
+
+<h3 id="the-request-object">the request object</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>Request object id</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>Timestamp</td>
+<td>Requests start date</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>Timestamp</td>
+<td>Requests end date</td>
+</tr>
+<tr>
+<td>request_type</td>
+<td>String</td>
+<td>vacation, request-off, request-on, prefer-off, prefer-on</td>
+</tr>
+<tr>
+<td>employee_id</td>
+<td>Integer</td>
+<td>The employees id</td>
+</tr>
+<tr>
+<td>pool_id</td>
+<td>Integer</td>
+<td>The pool that the employee is a member of</td>
+</tr>
+<tr>
+<td>approved</td>
+<td>Boolean</td>
+<td>If true, the request will be considered for schedule creation</td>
+</tr>
+</tbody></table>
+
+<h3 id="create-a-request">create a request</h3>
+
+<p>For the scheduler to take employee requests into consideration, employees need to make requests.</p>
+
+<table><thead>
+<tr>
+<th>Arguments</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>start_date</td>
+<td>Timestamp</td>
+<td>Requests start date</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>Timestamp</td>
+<td>Requests end date</td>
+</tr>
+<tr>
+<td>request_type</td>
+<td>String</td>
+<td>Vacation, request-off, request-on, prefer-off, prefer-on</td>
+</tr>
+</tbody></table>
+
+<h3 id="show-a-request">show a request</h3>
+
+<p>Returns a request given its ID</p>
+
+<h3 id="update-a-request">update a request</h3>
+
+<p>Update a requests start_date, end_date and request_type</p>
+
+<h3 id="delete-a-request">delete a request</h3>
+
+<p>Delete a request given the ID</p>
+
+<h3 id="list-all-requests-for-the-employee">list all requests for the employee</h3>
+
+<p>Returns the list of requests of the employee provided the employee_id</p>
+
+<table><thead>
+<tr>
+<th>Arguments</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>start</td>
+<td>Timestamp</td>
+<td>Requests after the start date</td>
+</tr>
+<tr>
+<td>end</td>
+<td>Timestamp</td>
+<td>Requests before the end date</td>
+</tr>
+<tr>
+<td>approved</td>
+<td>Boolean</td>
+<td>If true, the requests that were approved will be shown</td>
+</tr>
+</tbody></table>
+
+<h2 id="swaps">Swaps</h2>
+
+<p>A swap is initited when an employee offers an assignment to other members of the pool or requests to take another members assignment.
+The API allows to create a swap, list all swaps relevant to the employee, delete and update a swap</p>
+
+<h2 id="conversations">Conversations</h2>
+
+<p>Conversations allow for communication between members of a pool. The API allows to create, show and reply to a conversation</p>
+
+<h2 id="notifications">Notifications</h2>
 
 <h1 id="authentication">Authentication</h1>
 
