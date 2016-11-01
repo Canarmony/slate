@@ -183,11 +183,246 @@ The API allows for updating user settings and returning employee accounts that b
 </tr>
 </tbody></table>
 
-<h3 id="retrieve-a-user">Retrieve a user</h3>
-
 <h3 id="update-a-user">Update a user</h3>
+<pre class="highlight shell"><code>curl POST <span class="s2">"http://mesh-scheduler.com/api/users/1"</span>
 
-<h2 id="employees">Employees</h2>
+</code></pre>
+
+<p>For the scheduler to take employee requests into consideration, employees need to make requests.</p>
+
+<table><thead>
+<tr>
+<th>Arguments</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>fname</td>
+<td>String</td>
+<td>First name</td>
+</tr>
+<tr>
+<td>lname</td>
+<td>String</td>
+<td>Last name</td>
+</tr>
+<tr>
+<td>email</td>
+<td>String</td>
+<td></td>
+</tr>
+<tr>
+<td>is_searchable_by_name</td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td>is_searchable_by_email</td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td>get_email_news</td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td>get_email_notifications</td>
+<td>boolean</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<h3 id="memberships">Memberships</h3>
+<pre class="highlight shell"><code>curl <span class="s2">"http://mesh-scheduler.com/api/users/1/memberships.json -u 'admin:secret'"</span>
+
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="w">
+</span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"user_id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Hassan Nouri"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activated"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2016-09-02T17:46:40.023Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2016-09-02T17:47:05.045Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"in_schedule"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invite_digest"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invited_user_id"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"show_email"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"weight_modifier"</span><span class="p">:</span><span class="mf">1.0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"user_id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Mohawk Nouri"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activated"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2016-09-04T21:49:31.367Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2016-09-04T21:49:31.400Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"in_schedule"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invite_digest"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invited_user_id"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"show_email"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"weight_modifier"</span><span class="p">:</span><span class="mf">1.0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>Returns a list of employee objects that represents the list of pools that the employee is a member of.</p>
+
+<h3 id="assignments">Assignments</h3>
+<pre class="highlight shell"><code>curl <span class="s2">"http://mesh-scheduler.com/api/users/1/assignments.json?start=start_date&amp;end=end_date"</span>
+
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="w">
+</span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">26</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"employee_alt_name"</span><span class="p">:</span><span class="s2">"Mohawk Nouri"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"position"</span><span class="p">:</span><span class="s2">"r2"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"solution_id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"employee_id"</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"published"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"start"</span><span class="p">:</span><span class="s2">"2016-10-28T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"end"</span><span class="p">:</span><span class="s2">"2016-10-29T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"allDay"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"weight_modifier"</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"color"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"approved"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"actualstart"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"actualend"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"employee_alt_name"</span><span class="p">:</span><span class="s2">"Mohawk Nouri"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"position"</span><span class="p">:</span><span class="s2">"r2"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2016-10-26T17:13:44.757Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2016-10-26T17:25:30.029Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"solution_id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"employee_id"</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"published"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"start"</span><span class="p">:</span><span class="s2">"2016-10-28T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"end"</span><span class="p">:</span><span class="s2">"2016-10-29T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"allDay"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"weight_modifier"</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"color"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"approved"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"actualstart"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"actualend"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>Returns the list of assignments that have been created and published for the current user.</p>
+
+<table><thead>
+<tr>
+<th>Arguments</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>start</td>
+<td>Timestamp</td>
+<td>Assignments after the start date</td>
+</tr>
+<tr>
+<td>end</td>
+<td>Timestamp</td>
+<td>Assignments before the end date</td>
+</tr>
+</tbody></table>
+
+<h2 id="pools">Pools</h2>
+
+<p>An Pool is created when a user requests to create a pool.
+The API returns an Assignment given its id as well as a list of assignments for the pool the employee is a member of. </p>
+
+<h3 id="the-pool-object">the pool object</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td></td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>Pool name</td>
+</tr>
+<tr>
+<td>activated</td>
+<td>Boolean</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<h3 id="retrieve-an-pool">retrieve an pool</h3>
+<pre class="highlight shell"><code>curl <span class="s2">"http://mesh-scheduler.com/api/pools/25.json -u 'admin:secret'"</span>
+
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="w">
+</span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Demo_Pool"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"activated"</span><span class="p">:</span><span class="s2">"true"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>Retrieves the details of an assignement that has been created and published for the employee. By 
+providing the ID of the assignment, it is returned.</p>
+
+<h3 id="list-all-pools-for-the-user">list all pools for the user</h3>
+<pre class="highlight shell"><code>curl <span class="s2">"http://mesh-scheduler.com/api/pools.json"</span>
+
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="w">
+</span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">25</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Demo_Pool"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activated"</span><span class="p">:</span><span class="s2">"true"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">26</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Another_Pool"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activated"</span><span class="p">:</span><span class="s2">"true"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<h2 id="employee">Employee</h2>
 
 <p>An Employee object is created after a User searches for a pool, makes a request to join that pool and is accepted by the pool administrator.
 The API returns an individual object given its id as well as other members in the pool. </p>
@@ -195,12 +430,18 @@ The API returns an individual object given its id as well as other members in th
 <h3 id="the-employee-object">the employee object</h3>
 <pre class="highlight json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mowhawk Nouri"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"activated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"in_schedule"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+          </span><span class="nt">"user_id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Mohawk Nouri"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"activated"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2016-09-04T21:49:31.367Z"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2016-09-04T21:49:31.400Z"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"in_schedule"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"invite_digest"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"invited_user_id"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"show_email"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"weight_modifier"</span><span class="p">:</span><span class="mf">1.0</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -245,7 +486,7 @@ The API returns an individual object given its id as well as other members in th
 </tbody></table>
 
 <h3 id="retrieve-employee">Retrieve employee</h3>
-<pre class="highlight shell"><code>curl <span class="s2">"http://mesh-scheduler.com/api/employees/8  -u 'admin:secret'"</span>
+<pre class="highlight shell"><code>curl <span class="s2">"http://mesh-scheduler.com/api/employees/7  -u 'admin:secret'"</span>
 
 </code></pre>
 
@@ -253,13 +494,19 @@ The API returns an individual object given its id as well as other members in th
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mowhawk Nouri"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"activated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"in_schedule"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
+        </span><span class="nt">"user_id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Mohawk Nouri"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"activated"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2016-09-04T21:49:31.367Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2016-09-04T21:49:31.400Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"in_schedule"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invite_digest"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"invited_user_id"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"show_email"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"weight_modifier"</span><span class="p">:</span><span class="mf">1.0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
 <p>Retrieves an employee with a given ID.
@@ -282,6 +529,7 @@ If the ID is invalid or the current user does not have the priviledge to retriev
     </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="err">nil</span><span class="p">,</span><span class="w">
     </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
     </span><span class="nt">"in_schedule"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="err">...</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w">
@@ -290,6 +538,7 @@ If the ID is invalid or the current user does not have the priviledge to retriev
     </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
     </span><span class="nt">"in_schedule"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="err">...</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -661,120 +910,8 @@ The API allows to create a swap, list all swaps relevant to the employee, delete
 </blockquote>
 <pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
 curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+  -H <span class="s2">"Authorization: auth_token that is saved in the user object"</span>
 </code></pre>
-
-<blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-<h1 id="kittens">Kittens</h1>
-
-<h2 id="get-all-kittens">Get All Kittens</h2>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves all kittens.</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://example.com/api/kittens</code></p>
-
-<h3 id="query-parameters">Query Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can&rsquo;t use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
-
-<h3 id="url-parameters">URL Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody></table>
 
           <h1 id="errors">Errors</h1>
 
