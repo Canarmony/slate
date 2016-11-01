@@ -37,7 +37,24 @@ The API allows for updating user settings and returning employee accounts that b
 
 ### The user object
 
+
 ### Create a user
+```shell
+curl POST "http://mesh-scheduler.com/api/users"
+
+```
+
+
+For the scheduler to take employee requests into consideration, employees need to make requests.
+
+Arguments | Name | Description
+--------- | ------- | -----------
+fname | String | First name 
+lname | String | Last name
+email | String |
+password | String |
+password_confirmation | String | 
+disclaimer | boolean | In order to create a user you must accept the disclaimer
 
 ### Retrieve a user
 
@@ -54,18 +71,12 @@ The API returns an individual object given its id as well as other members in th
 ```json
 [
   {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+    "id": 8,
+    "name": "Mowhawk Nouri",
+    "activated": "true",
+    "user_id": 1,
+    "pool_id": 5,
+    "in_schedule": 10
   }
 ]
 ```
@@ -81,12 +92,60 @@ in_schedule | Boolean: default false | If set to true, the employee is being sch
 
 
 ### Retrieve employee
+```shell
+curl "http://mesh-scheduler.com/api/employees/8  -u 'admin:secret'"
+
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "id": 8,
+  "name": "Mowhawk Nouri",
+  "activated": "true",
+  "user_id": 1,
+  "pool_id": 5,
+  "in_schedule": 10
+}
+```
 
 Retrieves an employee with a given ID.
 If the ID is invalid or the current user does not have the priviledge to retrieve the employee an error is raised.
 
-### List colleagues 
 
+
+### List colleagues 
+```shell
+curl "http://mesh-scheduler.com/api/employees/8/coworkers.json -u 'admin:secret'"
+
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+
+[
+  {
+    "id": 11,
+    "name": "Mowhawk Nouri",
+    "activated": "true",
+    "user_id": nil,
+    "pool_id": 8,
+    "in_schedule": true
+  },
+  {
+    "id": 13,
+    "name": "Mowhawk Nouri",
+    "activated": "true",
+    "user_id": 1,
+    "pool_id": 8,
+    "in_schedule": true
+  }
+]
+```
 List of all the employees colleagues given the employees ID.
 
 ## Assignments
@@ -107,11 +166,92 @@ end | Timestamp | The ending time of the assignment
 allDay | Boolean | If set to true, the assignment is all day.
 
 ### retrieve an assignment
+```shell
+curl "http://mesh-scheduler.com/api/assignments/25.json -u 'admin:secret'"
 
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+
+[
+  {
+    "pool_id":8,
+    "id":25,
+    "employee_alt_name":"Fahim",
+    "position":"r2",
+    "created_at":"2016-10-26T17:13:44.757Z",
+    "updated_at":"2016-10-26T17:25:30.029Z",
+    "solution_id":0,
+    "employee_id":11,
+    "published":true,
+    "start":"2016-10-28T00:00:00.000Z",
+    "end":"2016-10-29T00:00:00.000Z",
+    "allDay":true,
+    "weight_modifier":1.0,
+    "color":null,
+    "approved":true,
+    "actualstart":null,
+    "actualend":null
+  }
+]
+```
 Retrieves the details of an assignement that has been created and published for the employee. By 
 providing the ID of the assignment, it is returned.
 
 ### list all assignments for the employee
+```shell
+curl "http://mesh-scheduler.com/api/assignments.json?pool_id=8&start=start_date&end=end_date&eid=employee_id&not_eid=true -u 'admin:secret'"
+
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+
+[
+  {
+    "pool_id":8,
+    "id":26,
+    "employee_alt_name":"Mohawk Nouri",
+    "position":"r2",
+    "solution_id":0,
+    "employee_id":7,
+    "published":true,
+    "start":"2016-10-28T00:00:00.000Z",
+    "end":"2016-10-29T00:00:00.000Z",
+    "allDay":true,
+    "weight_modifier":1.0,
+    "color":null,
+    "approved":true,
+    "actualstart":null,
+    "actualend":null
+  },
+  {
+    "pool_id":8,
+    "id":25,
+    "employee_alt_name":"Fahim",
+    "position":"r2",
+    "created_at":"2016-10-26T17:13:44.757Z",
+    "updated_at":"2016-10-26T17:25:30.029Z",
+    "solution_id":0,
+    "employee_id":11,
+    "published":true,
+    "start":"2016-10-28T00:00:00.000Z",
+    "end":"2016-10-29T00:00:00.000Z",
+    "allDay":true,
+    "weight_modifier":1.0,
+    "color":null,
+    "approved":true,
+    "actualstart":null,
+    "actualend":null
+  }
+]
+```
+
 
 Returns the list of assignments provided the pool_id that have been created and published for the employee.
 
@@ -142,6 +282,11 @@ approved | Boolean | If true, the request will be considered for schedule creati
 
 
 ### create a request
+```shell
+curl POST "http://mesh-scheduler.com/api/requests?employee_id=8&start_date=date&end_date=end&request_type=type -u 'admin:secret'"
+
+```
+
 
 For the scheduler to take employee requests into consideration, employees need to make requests.
 
@@ -153,18 +298,82 @@ request_type | String | Vacation, request-off, request-on, prefer-off, prefer-on
 
 
 ### show a request
+```shell
+curl "http://mesh-scheduler.com/api/requests/9.json -u 'admin:secret'"
+
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+
+{
+    "id":9,
+    "employee_id":6,
+    "start_date":"2016-09-13",
+    "end_date":"2016-09-16",
+    "request_type":"vacation",
+    "pool_id":7,
+    "created_at":"2016-09-04T21:06:01.855Z",
+    "updated_at":"2016-09-04T21:06:01.855Z",
+    "approved":0
+}
+```
+
 
 Returns a request given its ID
 
 ### update a request
+```shell
+curl POST "http://mesh-scheduler.com/api/requests/9.json -u 'admin:secret'"
 
+```
 Update a requests start_date, end_date and request_type
 
 ### delete a request
+```shell
+curl DELETE "http://mesh-scheduler.com/api/requests/9.json -u 'admin:secret'"
 
+```
 Delete a request given the ID
 
 ### list all requests for the employee
+```shell
+curl "http://mesh-scheduler.com/api/requests.json?employee_id=8&start=start_date&end=end_date&approved=true -u 'admin:secret'"
+
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+
+[
+    {
+        "employee_id":7,
+        "id":17,
+        "start_date":"2016-10-28",
+        "end_date":"2016-10-30",
+        "request_type":"vacation",
+        "pool_id":8,
+        "created_at":"2016-10-26T17:01:40.211Z",
+        "updated_at":"2016-10-26T17:01:40.230Z",
+        "approved":1
+    },
+    {
+        "employee_id":7,
+        "id":19,
+        "start_date":"2016-11-15",
+        "end_date":"2016-11-18",
+        "request_type":"vacation",
+        "pool_id":8,
+        "created_at":"2016-11-01T17:51:54.279Z",
+        "updated_at":"2016-11-01T17:51:54.301Z",
+        "approved":1
+    }
+]
+```
 
 Returns the list of requests of the employee provided the employee_id
 
