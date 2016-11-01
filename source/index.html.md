@@ -56,12 +56,196 @@ password | String |
 password_confirmation | String | 
 disclaimer | boolean | In order to create a user you must accept the disclaimer
 
-### Retrieve a user
 
 ### Update a user
+```shell
+curl POST "http://mesh-scheduler.com/api/users/1"
 
-## Employees
+```
 
+
+For the scheduler to take employee requests into consideration, employees need to make requests.
+
+Arguments | Name | Description
+--------- | ------- | -----------
+fname | String | First name 
+lname | String | Last name
+email | String |
+is_searchable_by_name | boolean |
+is_searchable_by_email | boolean | 
+get_email_news | boolean | 
+get_email_notifications | boolean |
+
+### Memberships
+
+```shell
+curl "http://mesh-scheduler.com/api/users/1/memberships.json -u 'admin:secret'"
+
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+
+[
+    {
+        "user_id":1,
+        "id":6,
+        "name":"Hassan Nouri",
+        "activated":true,
+        "created_at":"2016-09-02T17:46:40.023Z",
+        "updated_at":"2016-09-02T17:47:05.045Z",
+        "pool_id":7,
+        "in_schedule":true,
+        "invite_digest":null,
+        "invited_user_id":null,
+        "show_email":true,
+        "weight_modifier":1.0
+    },
+    {
+        "user_id":1,
+        "id":7,
+        "name":"Mohawk Nouri",
+        "activated":true,
+        "created_at":"2016-09-04T21:49:31.367Z",
+        "updated_at":"2016-09-04T21:49:31.400Z",
+        "pool_id":8,
+        "in_schedule":true,
+        "invite_digest":null,
+        "invited_user_id":null,
+        "show_email":true,
+        "weight_modifier":1.0
+    }
+]
+```
+Returns a list of employee objects that represents the list of pools that the employee is a member of.
+
+### Assignments
+```shell
+curl "http://mesh-scheduler.com/api/users/1/assignments.json?start=start_date&end=end_date"
+
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+
+[
+  {
+    "pool_id":8,
+    "id":26,
+    "employee_alt_name":"Mohawk Nouri",
+    "position":"r2",
+    "solution_id":0,
+    "employee_id":7,
+    "published":true,
+    "start":"2016-10-28T00:00:00.000Z",
+    "end":"2016-10-29T00:00:00.000Z",
+    "allDay":true,
+    "weight_modifier":1.0,
+    "color":null,
+    "approved":true,
+    "actualstart":null,
+    "actualend":null
+  },
+  {
+    "pool_id":9,
+    "id":25,
+    "employee_alt_name":"Mohawk Nouri",
+    "position":"r2",
+    "created_at":"2016-10-26T17:13:44.757Z",
+    "updated_at":"2016-10-26T17:25:30.029Z",
+    "solution_id":0,
+    "employee_id":11,
+    "published":true,
+    "start":"2016-10-28T00:00:00.000Z",
+    "end":"2016-10-29T00:00:00.000Z",
+    "allDay":true,
+    "weight_modifier":1.0,
+    "color":null,
+    "approved":true,
+    "actualstart":null,
+    "actualend":null
+  }
+]
+```
+
+
+Returns the list of assignments that have been created and published for the current user.
+
+
+Arguments | Name | Description
+--------- | ------- | -----------
+start | Timestamp | Assignments after the start date 
+end | Timestamp | Assignments before the end date
+
+
+## Pools
+
+An Pool is created when a user requests to create a pool.
+The API returns an Assignment given its id as well as a list of assignments for the pool the employee is a member of. 
+
+### the pool object
+
+Attribute | Type | Description
+--------- | ------- | -----------
+id | Integer | 
+name | String | Pool name
+activated | Boolean | 
+
+### retrieve an pool
+```shell
+curl "http://mesh-scheduler.com/api/pools/25.json -u 'admin:secret'"
+
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+
+[
+  {
+    "id":25,
+    "name":"Demo_Pool",
+    "activated":"true"
+  }
+]
+```
+Retrieves the details of an assignement that has been created and published for the employee. By 
+providing the ID of the assignment, it is returned.
+
+### list all pools for the user
+```shell
+curl "http://mesh-scheduler.com/api/pools.json"
+
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+
+[
+  {
+      "id":25,
+      "name":"Demo_Pool",
+      "activated":"true"
+    },
+  {
+      "id":26,
+      "name":"Another_Pool",
+      "activated":"true"
+    }
+]
+```
+
+
+
+
+## Employee
 An Employee object is created after a User searches for a pool, makes a request to join that pool and is accepted by the pool administrator.
 The API returns an individual object given its id as well as other members in the pool. 
 
@@ -71,12 +255,18 @@ The API returns an individual object given its id as well as other members in th
 ```json
 [
   {
-    "id": 8,
-    "name": "Mowhawk Nouri",
-    "activated": "true",
-    "user_id": 1,
-    "pool_id": 5,
-    "in_schedule": 10
+          "user_id":1,
+          "id":7,
+          "name":"Mohawk Nouri",
+          "activated":true,
+          "created_at":"2016-09-04T21:49:31.367Z",
+          "updated_at":"2016-09-04T21:49:31.400Z",
+          "pool_id":8,
+          "in_schedule":true,
+          "invite_digest":null,
+          "invited_user_id":null,
+          "show_email":true,
+          "weight_modifier":1.0
   }
 ]
 ```
@@ -93,7 +283,7 @@ in_schedule | Boolean: default false | If set to true, the employee is being sch
 
 ### Retrieve employee
 ```shell
-curl "http://mesh-scheduler.com/api/employees/8  -u 'admin:secret'"
+curl "http://mesh-scheduler.com/api/employees/7  -u 'admin:secret'"
 
 ```
 
@@ -102,13 +292,19 @@ curl "http://mesh-scheduler.com/api/employees/8  -u 'admin:secret'"
 
 ```json
 {
-  "id": 8,
-  "name": "Mowhawk Nouri",
-  "activated": "true",
-  "user_id": 1,
-  "pool_id": 5,
-  "in_schedule": 10
-}
+        "user_id":1,
+        "id":7,
+        "name":"Mohawk Nouri",
+        "activated":true,
+        "created_at":"2016-09-04T21:49:31.367Z",
+        "updated_at":"2016-09-04T21:49:31.400Z",
+        "pool_id":8,
+        "in_schedule":true,
+        "invite_digest":null,
+        "invited_user_id":null,
+        "show_email":true,
+        "weight_modifier":1.0
+    }
 ```
 
 Retrieves an employee with a given ID.
@@ -135,6 +331,7 @@ curl "http://mesh-scheduler.com/api/employees/8/coworkers.json -u 'admin:secret'
     "user_id": nil,
     "pool_id": 8,
     "in_schedule": true
+    ...
   },
   {
     "id": 13,
@@ -143,6 +340,7 @@ curl "http://mesh-scheduler.com/api/employees/8/coworkers.json -u 'admin:secret'
     "user_id": 1,
     "pool_id": 8,
     "in_schedule": true
+    ...
   }
 ]
 ```
@@ -263,6 +461,10 @@ end | Timestamp | Assignments before the end date
 eid | Integer | the employee id 
 not_eid | Boolean | All assignments belonging to employees in the pool that are not the employee is returned
           
+          
+
+
+
 ## Requests
 
 A request is made by the employee asking for a vacation, day off, day on, prefer on or prefer off. The API allows for showing 
@@ -408,102 +610,7 @@ Conversations allow for communication between members of a pool. The API allows 
 ```shell
 # With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: auth_token that is saved in the user object"
 ```
 
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
 
