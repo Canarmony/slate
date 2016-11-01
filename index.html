@@ -138,6 +138,50 @@ The API allows for updating user settings and returning employee accounts that b
 <h3 id="the-user-object">The user object</h3>
 
 <h3 id="create-a-user">Create a user</h3>
+<pre class="highlight shell"><code>curl POST <span class="s2">"http://mesh-scheduler.com/api/users"</span>
+
+</code></pre>
+
+<p>For the scheduler to take employee requests into consideration, employees need to make requests.</p>
+
+<table><thead>
+<tr>
+<th>Arguments</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>fname</td>
+<td>String</td>
+<td>First name</td>
+</tr>
+<tr>
+<td>lname</td>
+<td>String</td>
+<td>Last name</td>
+</tr>
+<tr>
+<td>email</td>
+<td>String</td>
+<td></td>
+</tr>
+<tr>
+<td>password</td>
+<td>String</td>
+<td></td>
+</tr>
+<tr>
+<td>password_confirmation</td>
+<td>String</td>
+<td></td>
+</tr>
+<tr>
+<td>disclaimer</td>
+<td>boolean</td>
+<td>In order to create a user you must accept the disclaimer</td>
+</tr>
+</tbody></table>
 
 <h3 id="retrieve-a-user">Retrieve a user</h3>
 
