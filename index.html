@@ -151,18 +151,12 @@ The API returns an individual object given its id as well as other members in th
 <h3 id="the-employee-object">the employee object</h3>
 <pre class="highlight json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mowhawk Nouri"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"activated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"in_schedule"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -207,11 +201,54 @@ The API returns an individual object given its id as well as other members in th
 </tbody></table>
 
 <h3 id="retrieve-employee">Retrieve employee</h3>
+<pre class="highlight shell"><code>curl <span class="s2">"http://mesh-scheduler.com/api/employees/8  -u 'admin:secret'"</span>
+
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mowhawk Nouri"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"activated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"in_schedule"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <p>Retrieves an employee with a given ID.
 If the ID is invalid or the current user does not have the priviledge to retrieve the employee an error is raised.</p>
 
 <h3 id="list-colleagues">List colleagues</h3>
+<pre class="highlight shell"><code>curl <span class="s2">"http://mesh-scheduler.com/api/employees/8/coworkers.json -u 'admin:secret'"</span>
+
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="w">
+</span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mowhawk Nouri"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"activated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="err">nil</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"in_schedule"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mowhawk Nouri"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"activated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"in_schedule"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
 
 <p>List of all the employees colleagues given the employees ID.</p>
 
@@ -267,11 +304,88 @@ The API returns an Assignment give its id as well as a list of assignments for t
 </tbody></table>
 
 <h3 id="retrieve-an-assignment">retrieve an assignment</h3>
+<pre class="highlight shell"><code>curl <span class="s2">"http://mesh-scheduler.com/api/assignments/25.json -u 'admin:secret'"</span>
+
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="w">
+</span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"employee_alt_name"</span><span class="p">:</span><span class="s2">"Fahim"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"position"</span><span class="p">:</span><span class="s2">"r2"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2016-10-26T17:13:44.757Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2016-10-26T17:25:30.029Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"solution_id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"employee_id"</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"published"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"start"</span><span class="p">:</span><span class="s2">"2016-10-28T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"end"</span><span class="p">:</span><span class="s2">"2016-10-29T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"allDay"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"weight_modifier"</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"color"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"approved"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"actualstart"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"actualend"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
 
 <p>Retrieves the details of an assignement that has been created and published for the employee. By 
 providing the ID of the assignment, it is returned.</p>
 
 <h3 id="list-all-assignments-for-the-employee">list all assignments for the employee</h3>
+<pre class="highlight shell"><code>curl <span class="s2">"http://mesh-scheduler.com/api/assignments.json?pool_id=8&amp;start=start_date&amp;end=end_date&amp;eid=employee_id&amp;not_eid=true -u 'admin:secret'"</span>
+
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="w">
+</span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">26</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"employee_alt_name"</span><span class="p">:</span><span class="s2">"Mohawk Nouri"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"position"</span><span class="p">:</span><span class="s2">"r2"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"solution_id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"employee_id"</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"published"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"start"</span><span class="p">:</span><span class="s2">"2016-10-28T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"end"</span><span class="p">:</span><span class="s2">"2016-10-29T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"allDay"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"weight_modifier"</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"color"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"approved"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"actualstart"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"actualend"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"employee_alt_name"</span><span class="p">:</span><span class="s2">"Fahim"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"position"</span><span class="p">:</span><span class="s2">"r2"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2016-10-26T17:13:44.757Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2016-10-26T17:25:30.029Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"solution_id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"employee_id"</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"published"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"start"</span><span class="p">:</span><span class="s2">"2016-10-28T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"end"</span><span class="p">:</span><span class="s2">"2016-10-29T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"allDay"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"weight_modifier"</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"color"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"approved"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"actualstart"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"actualend"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
 
 <p>Returns the list of assignments provided the pool_id that have been created and published for the employee.</p>
 
@@ -356,6 +470,9 @@ a single request given the id, showing the list of requests an employee has made
 </tbody></table>
 
 <h3 id="create-a-request">create a request</h3>
+<pre class="highlight shell"><code>curl POST <span class="s2">"http://mesh-scheduler.com/api/requests?employee_id=8&amp;start_date=date&amp;end_date=end&amp;request_type=type -u 'admin:secret'"</span>
+
+</code></pre>
 
 <p>For the scheduler to take employee requests into consideration, employees need to make requests.</p>
 
@@ -384,18 +501,77 @@ a single request given the id, showing the list of requests an employee has made
 </tbody></table>
 
 <h3 id="show-a-request">show a request</h3>
+<pre class="highlight shell"><code>curl <span class="s2">"http://mesh-scheduler.com/api/requests/9.json -u 'admin:secret'"</span>
+
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"employee_id"</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"start_date"</span><span class="p">:</span><span class="s2">"2016-09-13"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"end_date"</span><span class="p">:</span><span class="s2">"2016-09-16"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"request_type"</span><span class="p">:</span><span class="s2">"vacation"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2016-09-04T21:06:01.855Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2016-09-04T21:06:01.855Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"approved"</span><span class="p">:</span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <p>Returns a request given its ID</p>
 
 <h3 id="update-a-request">update a request</h3>
+<pre class="highlight shell"><code>curl POST <span class="s2">"http://mesh-scheduler.com/api/requests/9.json -u 'admin:secret'"</span>
+
+</code></pre>
 
 <p>Update a requests start_date, end_date and request_type</p>
 
 <h3 id="delete-a-request">delete a request</h3>
+<pre class="highlight shell"><code>curl DELETE <span class="s2">"http://mesh-scheduler.com/api/requests/9.json -u 'admin:secret'"</span>
+
+</code></pre>
 
 <p>Delete a request given the ID</p>
 
 <h3 id="list-all-requests-for-the-employee">list all requests for the employee</h3>
+<pre class="highlight shell"><code>curl <span class="s2">"http://mesh-scheduler.com/api/requests.json?employee_id=8&amp;start=start_date&amp;end=end_date&amp;approved=true -u 'admin:secret'"</span>
+
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="w">
+</span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"employee_id"</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">17</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"start_date"</span><span class="p">:</span><span class="s2">"2016-10-28"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"end_date"</span><span class="p">:</span><span class="s2">"2016-10-30"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"request_type"</span><span class="p">:</span><span class="s2">"vacation"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2016-10-26T17:01:40.211Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2016-10-26T17:01:40.230Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"approved"</span><span class="p">:</span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"employee_id"</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"start_date"</span><span class="p">:</span><span class="s2">"2016-11-15"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"end_date"</span><span class="p">:</span><span class="s2">"2016-11-18"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"request_type"</span><span class="p">:</span><span class="s2">"vacation"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created_at"</span><span class="p">:</span><span class="s2">"2016-11-01T17:51:54.279Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2016-11-01T17:51:54.301Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"approved"</span><span class="p">:</span><span class="mi">1</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
 
 <p>Returns the list of requests of the employee provided the employee_id</p>
 
