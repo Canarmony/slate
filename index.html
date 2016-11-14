@@ -234,7 +234,7 @@ The API allows for updating user settings and returning employee accounts that b
 </tr>
 </tbody></table>
 
-<h3 id="memberships">Memberships</h3>
+<h3 id="membershipsz">Membershipsz</h3>
 <pre class="highlight shell"><code>curl <span class="s2">"http://mesh-scheduler.com/api/users/1/memberships.json -u 'admin:secret'"</span>
 
 </code></pre>
@@ -349,7 +349,7 @@ The API allows for updating user settings and returning employee accounts that b
 
 <h2 id="pools">Pools</h2>
 
-<p>An Pool is created when a user requests to create a pool.
+<p>A Pool is created when a user requests to create a pool.
 The API returns an Assignment given its id as well as a list of assignments for the pool the employee is a member of. </p>
 
 <h3 id="the-pool-object">the pool object</h3>
@@ -567,7 +567,7 @@ The API returns an Assignment give its id as well as a list of assignments for t
 <tr>
 <td>position</td>
 <td>String</td>
-<td>Employees name</td>
+<td>The role of the assignment</td>
 </tr>
 <tr>
 <td>pool_id</td>
@@ -578,6 +578,11 @@ The API returns an Assignment give its id as well as a list of assignments for t
 <td>employee_id</td>
 <td>Integer</td>
 <td>The employee that the assignment belongs to</td>
+</tr>
+<tr>
+<td>employee_name</td>
+<td>String</td>
+<td>The name of the employee that the assignment belongs to</td>
 </tr>
 <tr>
 <td>start</td>
@@ -592,20 +597,23 @@ The API returns an Assignment give its id as well as a list of assignments for t
 <tr>
 <td>allDay</td>
 <td>Boolean</td>
-<td>If set to true, the assignment is all day.</td>
+<td>If set to true, the assignment is all day (should not show time info).</td>
+</tr>
+<tr>
+<td>color</td>
+<td>String</td>
+<td>If set, the assignment should be shown with this particular custom color.</td>
 </tr>
 </tbody></table>
 
 <h3 id="retrieve-an-assignment">retrieve an assignment</h3>
 <pre class="highlight shell"><code>curl <span class="s2">"http://mesh-scheduler.com/api/assignments/25.json -u 'admin:secret'"</span>
-
 </code></pre>
 
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json"><code><span class="w">
-</span><span class="p">[</span><span class="w">
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">25</span><span class="p">,</span><span class="w">
@@ -623,24 +631,22 @@ The API returns an Assignment give its id as well as a list of assignments for t
     </span><span class="nt">"color"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"approved"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nt">"actualstart"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"actualend"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+    </span><span class="nt">"actualend"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"employee_name"</span><span class="p">:</span><span class="s2">"Fahim"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 
-<p>Retrieves the details of an assignement that has been created and published for the employee. By 
-providing the ID of the assignment, it is returned.</p>
+<p>Using a get request with an ID retrieves the details of the assignment with that ID.</p>
 
-<h3 id="list-all-assignments-for-the-employee">list all assignments for the employee</h3>
-<pre class="highlight shell"><code>curl <span class="s2">"http://mesh-scheduler.com/api/assignments.json?pool_id=8&amp;start=start_date&amp;end=end_date&amp;eid=employee_id&amp;not_eid=true -u 'admin:secret'"</span>
-
+<h3 id="list-assignments">list assignments</h3>
+<pre class="highlight shell"><code>curl <span class="s2">"http://mesh-scheduler.com/api/assignments.json?pool_id=8&amp;start=start_date&amp;end=end_date&amp;empid=employee_id&amp;not_eid=true -u 'admin:secret'"</span>
 </code></pre>
 
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json"><code><span class="w">
-</span><span class="p">[</span><span class="w">
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">26</span><span class="p">,</span><span class="w">
@@ -656,7 +662,8 @@ providing the ID of the assignment, it is returned.</p>
     </span><span class="nt">"color"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"approved"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nt">"actualstart"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"actualend"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+    </span><span class="nt">"actualend"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"employee_name"</span><span class="p">:</span><span class="s2">"Mohawk Nouri"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"pool_id"</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="w">
@@ -675,12 +682,15 @@ providing the ID of the assignment, it is returned.</p>
     </span><span class="nt">"color"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"approved"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nt">"actualstart"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"actualend"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+    </span><span class="nt">"actualend"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"employee_name"</span><span class="p">:</span><span class="s2">"Fahim"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 
-<p>Returns the list of assignments provided the pool_id that have been created and published for the employee.</p>
+<p>A GET request on the assignments resource will return a list of assignments. Without any parameters, this will default
+to returning all the assignments associated with the user (from all pools). If an employee_id, not_employee_id, or
+pool_id are included, the list will default to all assignments associated with a pool.</p>
 
 <table><thead>
 <tr>
@@ -690,24 +700,29 @@ providing the ID of the assignment, it is returned.</p>
 </tr>
 </thead><tbody>
 <tr>
+<td>pool_id</td>
+<td>Integer</td>
+<td>Include only assignments from the associated pool</td>
+</tr>
+<tr>
 <td>start</td>
 <td>Timestamp</td>
-<td>Assignments after the start date</td>
+<td>Include only assignments whose &lsquo;end&rsquo; timestamp is after this value</td>
 </tr>
 <tr>
 <td>end</td>
 <td>Timestamp</td>
-<td>Assignments before the end date</td>
+<td>Include only assignments whose &#39;start&rsquo; timestamp is before this value</td>
 </tr>
 <tr>
-<td>eid</td>
+<td>employee_id</td>
 <td>Integer</td>
-<td>the employee id</td>
+<td>Include only assignments associated with this employee id</td>
 </tr>
 <tr>
-<td>not_eid</td>
-<td>Boolean</td>
-<td>All assignments belonging to employees in the pool that are not the employee is returned</td>
+<td>not_employee_id</td>
+<td>Integer</td>
+<td>Exclude assignments with this employee id</td>
 </tr>
 </tbody></table>
 
