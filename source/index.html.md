@@ -184,7 +184,7 @@ end | Timestamp | Assignments before the end date
 
 ## Pools
 
-An Pool is created when a user requests to create a pool.
+A Pool is created when a user requests to create a pool.
 The API returns an Assignment given its id as well as a list of assignments for the pool the employee is a member of. 
 
 ### the pool object
@@ -348,6 +348,7 @@ List of all the employees colleagues given the employees ID.
 
 ## Assignments
 
+
 An Assignment is created when an employee of the pool is assigned to a empty timeslot within the schedule.
 The API returns an Assignment give its id as well as a list of assignments for the pool the employee is a member of. 
 
@@ -356,24 +357,23 @@ The API returns an Assignment give its id as well as a list of assignments for t
 Attribute | Type | Description
 --------- | ------- | -----------
 id | Integer | 
-position | String | Employees name
+position | String | The role of the assignment
 pool_id | Integer | The pool that the assignment belongs to
 employee_id | Integer | The employee that the assignment belongs to
+employee_name | String | The name of the employee that the assignment belongs to
 start | Timestamp | The starting time of the assignment
 end | Timestamp | The ending time of the assignment
-allDay | Boolean | If set to true, the assignment is all day.
+allDay | Boolean | If set to true, the assignment is all day (should not show time info).
+color | String | If set, the assignment should be shown with this particular custom color.
 
 ### retrieve an assignment
 ```shell
 curl "http://mesh-scheduler.com/api/assignments/25.json -u 'admin:secret'"
-
 ```
-
 
 > The above command returns JSON structured like this:
 
 ```json
-
 [
   {
     "pool_id":8,
@@ -392,24 +392,26 @@ curl "http://mesh-scheduler.com/api/assignments/25.json -u 'admin:secret'"
     "color":null,
     "approved":true,
     "actualstart":null,
-    "actualend":null
+    "actualend":null,
+    "employee_name":"Fahim"
   }
 ]
 ```
-Retrieves the details of an assignement that has been created and published for the employee. By 
-providing the ID of the assignment, it is returned.
 
-### list all assignments for the employee
+Using a get request with an ID retrieves the details of the assignment with that ID.
+
+
+
+
+### list assignments
 ```shell
-curl "http://mesh-scheduler.com/api/assignments.json?pool_id=8&start=start_date&end=end_date&eid=employee_id&not_eid=true -u 'admin:secret'"
-
+curl "http://mesh-scheduler.com/api/assignments.json?pool_id=8&start=start_date&end=end_date&empid=employee_id&not_eid=true -u 'admin:secret'"
 ```
 
 
 > The above command returns JSON structured like this:
 
 ```json
-
 [
   {
     "pool_id":8,
@@ -426,7 +428,8 @@ curl "http://mesh-scheduler.com/api/assignments.json?pool_id=8&start=start_date&
     "color":null,
     "approved":true,
     "actualstart":null,
-    "actualend":null
+    "actualend":null,
+    "employee_name":"Mohawk Nouri"
   },
   {
     "pool_id":8,
@@ -445,24 +448,23 @@ curl "http://mesh-scheduler.com/api/assignments.json?pool_id=8&start=start_date&
     "color":null,
     "approved":true,
     "actualstart":null,
-    "actualend":null
+    "actualend":null,
+    "employee_name":"Fahim"
   }
 ]
 ```
-
-
-Returns the list of assignments provided the pool_id that have been created and published for the employee.
+A GET request on the assignments resource will return a list of assignments. Without any parameters, this will default
+to returning all the assignments associated with the user (from all pools). If an employee_id, not_employee_id, or
+pool_id are included, the list will default to all assignments associated with a pool.
 
 
 Arguments | Name | Description
 --------- | ------- | -----------
-start | Timestamp | Assignments after the start date 
-end | Timestamp | Assignments before the end date
-eid | Integer | the employee id 
-not_eid | Boolean | All assignments belonging to employees in the pool that are not the employee is returned
-          
-          
-
+pool_id | Integer | Include only assignments from the associated pool
+start | Timestamp | Include only assignments whose 'end' timestamp is after this value
+end | Timestamp | Include only assignments whose 'start' timestamp is before this value
+employee_id | Integer | Include only assignments associated with this employee id
+not_employee_id | Integer | Exclude assignments with this employee id
 
 
 ## Requests
