@@ -76,7 +76,7 @@ is_searchable_by_email | boolean |
 get_email_news | boolean | 
 get_email_notifications | boolean |
 
-### Memberships
+### Membershipsz
 
 ```shell
 curl "http://mesh-scheduler.com/api/users/1/memberships.json -u 'admin:secret'"
