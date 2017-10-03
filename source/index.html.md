@@ -23,7 +23,7 @@ http://api.mesh-scheduler.com
 
 
 The MESH API is organized around REST. JSON is returned by all API responses, including errors.
-The website is [MESH](http://www.mesh-scheduler.com). Feel free to sign up and check it out.
+The website is [MESHAI](http://www.meshai.io). Feel free to sign up and check it out.
 if you need to tak to us please email at **canarmony@gmail.com**
 
 
@@ -76,7 +76,7 @@ is_searchable_by_email | boolean |
 get_email_news | boolean | 
 get_email_notifications | boolean |
 
-### Membershipsz
+### Memberships
 
 ```shell
 curl "http://mesh-scheduler.com/api/users/1/memberships.json -u 'admin:secret'"
